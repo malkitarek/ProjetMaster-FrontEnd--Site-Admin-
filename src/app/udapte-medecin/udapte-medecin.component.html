@@ -1,0 +1,214 @@
+<div class="panel" >
+  <div class="card-header m-b-15 row">
+    <div class="col-md-0">
+      <mat-icon routerLink="/medecins" style="cursor: pointer">keyboard_arrow_left</mat-icon>
+    </div>
+    <div class="col-md-7">
+      <h3>
+        <b>Modifier Médecin</b>
+      </h3>
+    </div>
+  </div>
+
+  <form  *ngIf="medecin" name="form" #f="ngForm" (ngSubmit)="f.form.valid && update(f.value)"  novalidate class="feedback-form">
+    <input type="hidden" name="id"/>
+    <div class="form-group">
+      <label for="identite">Numéro d'identité</label>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><mat-icon>perm_identity</mat-icon></div>
+        </div>
+        <input type="text" class="form-control" id="identite" required [(ngModel)]="medecin.numeroIdentite" name="numeroIdentite"
+               #numeroIdentite="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && numeroIdentite.invalid }"
+               required />
+      </div>
+      <div *ngIf="f.submitted && numeroIdentite.invalid" class="invalid-input">
+        <!-- individual validation errors -->
+        <div *ngIf="numeroIdentite.errors?.required">Field is required</div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="firstName">Nom</label>
+        <input type="text" class="form-control" id="firstName" required [(ngModel)]="medecin.nom" name="nom"
+               #nom="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && nom.invalid }"
+               required />
+        <div *ngIf="f.submitted && nom.invalid" class="invalid-input">
+          <!-- individual validation errors -->
+          <div *ngIf="nom.errors?.required">Field is required</div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="prenom">Prénom</label>
+        <input type="text" class="form-control" id="prenom" required [(ngModel)]="medecin.prenom" name="prenom"
+               #prenom="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && prenom.invalid }"
+               required />
+        <div *ngIf="f.submitted && prenom.invalid" class="invalid-input">
+          <!-- individual validation errors -->
+          <div *ngIf="prenom.errors?.required">Field is required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="email">Email</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><mat-icon>email</mat-icon></div>
+          </div>
+          <input type="text" class="form-control" id="email" required [(ngModel)]="medecin.appUser.email" name="email"
+                 #email="ngModel"
+                 [ngClass]="{ 'is-invalid': (f.submitted && email.invalid)||errorMessage=='Email is already exist' }"
+                 required email />
+        </div>
+        <div *ngIf="f.submitted && email.invalid ||errorMessage=='Email is already exist'" class="invalid-input">
+          <!-- individual validation errors -->
+          <div *ngIf="email.errors?.required">Field is required</div>
+          <div *ngIf="email.errors?.email">Field is not a valid email</div>
+          <div *ngIf="errorMessage=='Email is already exist'">{{errorMessage}}</div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="dateNaissance">Date Naissance</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><mat-icon>date_range</mat-icon></div>
+          </div>
+          <input type="date" class="form-control" id="dateNaissance" required (ngModelChange)="updatedate($event)"
+                 [ngModel]="medecin.dateNaissance |date:'yyyy-MM-dd'"
+                 name="dateNaissance"
+                 #dateNaissance="ngModel"
+                 [ngClass]="{ 'is-invalid': f.submitted && dateNaissance.invalid }"
+                 required />
+        </div>
+        <div *ngIf="f.submitted && dateNaissance.invalid" class="invalid-input">
+          <!-- individual validation errors -->
+          <div *ngIf="dateNaissance.errors?.required">Field is required</div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="phone">Téléphone</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><mat-icon>phone</mat-icon></div>
+          </div>
+          <input type="tel" pattern="[0]{1}[0-9]{9}"  class="form-control" id="phone" required [(ngModel)]="medecin.appUser.phone" name="phone"
+                 #phone="ngModel"
+                 [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }"
+                 required />
+        </div>
+        <div *ngIf="f.submitted && phone.invalid" class="invalid-input">
+          <!-- individual validation errors -->
+          <div *ngIf="phone.errors?.required">Field is required</div>
+          <div *ngIf="phone.errors?.pattern">Format is not valid</div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="adresse">Adresse</label>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><mat-icon>place</mat-icon></div>
+        </div>
+        <input type="text" class="form-control" id="adresse" required [(ngModel)]="medecin.adresse" name="adresse"
+               #adresse="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && adresse.invalid }"
+               required />
+      </div>
+      <div *ngIf="f.submitted && adresse.invalid" class="invalid-input">
+        <!-- individual validation errors -->
+        <div *ngIf="adresse.errors?.required">Field is required</div>
+      </div>
+    </div>
+
+
+
+    <!--<div class="form-group">
+      <label for="service">Service</label>
+      <input type="text" class="form-control" id="service" required [(ngModel)]="medecin.service.nom" name="sevice" >
+    </div>-->
+
+    <div class="form-row">
+      <div class="form-group col-md-4" >
+        <label for="sel1">Service</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><mat-icon>local_hospital</mat-icon></div>
+          </div>
+          <select *ngIf="medecin.service" class="form-control"  id="sel1" [(ngModel)]="medecin.service.id"  name="service"
+                  #service="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && service.invalid }"
+                  required>
+            <option *ngFor="let ser of services"  [value]="ser.id" [selected]="medecin.service.id==ser.id">{{ser.nom}}</option>
+            <div *ngIf="f.submitted && service.invalid" class="invalid-input">
+              <!-- individual validation errors -->
+              <div *ngIf="service.errors?.required">Field is required</div>
+            </div>
+          </select>
+          <select *ngIf="!medecin.service && services" class="form-control" ngModel="" id="sel2" name="service"
+                  #service="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && service.invalid }"
+                  required
+          >
+
+            <option *ngFor="let ser of services"[value]="ser.id">{{ser.nom}}</option>
+            <div *ngIf="f.submitted && service.invalid" class="invalid-input">
+              <!-- individual validation errors -->
+              <div *ngIf="service.errors?.required">Field is required</div>
+            </div>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="firstName">Numéro de bureau</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><mat-icon>meeting_room</mat-icon></div>
+          </div>
+        <input type="number" class="form-control" id="numeroBureau"
+               [(ngModel)]="medecin.numeroBureau" name="numeroBureau"
+               #numeroBureau="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && numeroBureau.invalid }"
+               required/>
+        <div *ngIf="f.submitted && numeroBureau.invalid" class="invalid-input">
+          <!-- individual validation errors -->
+          <div *ngIf="numeroBureau.errors?.required">Field is required</div>
+        </div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="firstName">Numéro d'étage</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><mat-icon>apartment</mat-icon></div>
+          </div>
+        <input type="number" class="form-control" id="numeroEtage"
+               [(ngModel)]="medecin.numeroEtage" name="numeroEtage"
+               #numeroEtage="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && numeroEtage.invalid }"
+               required/>
+        <div *ngIf="f.submitted && numeroEtage.invalid" class="invalid-input">
+          <!-- individual validation errors -->
+          <div *ngIf="numeroEtage.errors?.required">Field is required</div>
+        </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <button type="submit" class="btn btn-success">Modifier</button>
+  </form>
+
+
+</div>

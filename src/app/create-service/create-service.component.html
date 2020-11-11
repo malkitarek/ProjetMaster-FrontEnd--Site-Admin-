@@ -1,0 +1,75 @@
+<div class="panel" >
+  <div class="card-header m-b-15 row">
+    <div class="col-md-0">
+      <mat-icon routerLink="/services" style="cursor: pointer">keyboard_arrow_left</mat-icon>
+    </div>
+    <div class="col-md-7">
+      <h3>
+        <b>Ajouter Service</b>
+      </h3>
+    </div>
+  </div>
+
+<form  name="form" #f="ngForm" (ngSubmit)="f.form.valid && add(f.value)"  novalidate class="feedback-form">
+
+  <!--<div class="form-group">
+    <label for="firstName">Nom</label>
+    <input type="text" class="form-control" id="firstName"
+           ngModel="" name="nom"
+           #nom="ngModel"
+           [ngClass]="{ 'is-invalid': f.submitted && nom.invalid }"
+           required/>
+    <div *ngIf="f.submitted && nom.invalid" class="invalid-input">
+
+      <div *ngIf="nom.errors?.required">Field is required</div>
+    </div>
+  </div>-->
+
+  <div class="form-group">
+    <label for="nom">Nom</label>
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <div class="input-group-text"><mat-icon>local_hospital</mat-icon></div>
+      </div>
+      <input type="text" class="form-control" id="nom" required ngModel="" name="nom"
+             #nom="ngModel"
+             [ngClass]="{ 'is-invalid': (f.submitted && nom.invalid)||erroMessage=='Service is already exist' }"
+             required
+      />
+    </div>
+    <div *ngIf="f.submitted && nom.invalid ||erroMessage=='Service is already exist'" class="invalid-input">
+      <!-- individual validation errors -->
+      <div *ngIf="nom.errors?.required">Field is required</div>
+      <div *ngIf="erroMessage=='Service is already exist'">{{erroMessage}}</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="nom">Nom CHU</label>
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <div class="input-group-text"><mat-icon>local_hospital</mat-icon></div>
+      </div>
+      <input type="text" class="form-control" id="nomCHU" required ngModel="" name="nomCHU"
+             #nomCHU="ngModel"
+             [ngClass]="{ 'is-invalid': (f.submitted && nomCHU.invalid)}"
+             required
+      />
+    </div>
+    <div *ngIf="f.submitted && nomCHU.invalid " class="invalid-input">
+      <!-- individual validation errors -->
+      <div *ngIf="nom.errors?.required">Field is required</div>
+    </div>
+  </div>
+  <!--<div class="form-group" >
+    <label for="sel1">Médecins</label>
+    <select class="form-control" ngModel="" id="sel1" *ngIf="medecins" name="chefservice">
+
+      <option *ngFor="let med of medecins" [value]="med.id">{{med.nom}}</option>
+    </select>
+
+  </div>-->
+
+  <button type="submit" class="btn btn-success" >ajouter</button>
+</form>
+</div>

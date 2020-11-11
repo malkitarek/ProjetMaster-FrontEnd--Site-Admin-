@@ -1,0 +1,109 @@
+
+<div *ngIf="showHead">
+
+  <header class="main-navbar-header">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top theme-color">
+      <!--<div class="menu-toggle-button">
+        <a class="nav-link wave-effect" routerLink="medecins" id="sidebarCollapse">
+          <span class="ti-menu"></span>
+        </a>
+      </div>-->
+      <div style="margin-left: 5%;margin-right: 2%;margin-top: 1%;margin-bottom: 1%">
+        <img src="/assets/images/logo.png"  width="36">
+      </div>
+
+      <a class="navbar-brand" routerLink="dashboard"><b>SoinConnect</b></a>
+
+      <ul class="navbar-nav ml-auto navbar-top-links">
+        <li class="nav-item dropdown">
+          <a  class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img src="/assets/images/admin3.jpg" alt="user-img" width="46" class="img-circle">
+            <b class="d-none d-sm-inline-block">{{authSer.getAdmin()}}</b></a>
+          <ul class="dropdown-menu dropdown-user">
+            <li>
+              <div class="dw-user-box">
+                <div class="u-img"><img src="/assets/images/admin3.jpg" alt="user"></div>
+                <div class="u-text">
+                  <h4>{{authSer.getAdmin()}}</h4>
+                  <a routerLink="dashboard" class="btn btn-rounded btn-danger btn-sm">Dashboard</a></div>
+              </div>
+            </li>
+            <div class="dropdown-divider"></div>
+            <li><a routerLink="dashboard"><i class="ti-dashboard"></i> Dashboard</a></li>
+           <!-- <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
+            <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
+            <div class="dropdown-divider"></div>-->
+            <li class="clickable"><a (click)="onChange(authSer.getAdmin())"><i class="ti-settings"></i> Changer Password </a></li>
+            <div class="dropdown-divider"></div>
+            <li class="clickable"><a (click)="onLogout()"><i class="fa fa-power-off"></i> Déconnexion </a></li>
+          </ul>
+
+        </li>
+
+      </ul>
+    </nav>
+  </header>
+  <div class="wrapper">
+
+    <nav id="sidebar" class="nav-sidebar">
+      <ul class="list-unstyled components slimescroll-id" id="accordion">
+        <div class="user-profile">
+          <div class="dropdown user-pro-body">
+            <div><img src="/assets/images/admin3.jpg" alt="user-img" class="img-circle"></div>
+            <a href="#" class="dropdown-toggle u-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{authSer.getAdmin()}} </a>
+            <ul class="dropdown-menu">
+              <li><a routerLink="dashboard"><i class="ti-dashboard"></i> Dashboard</a></li>
+              <!--<li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
+              <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
+              <div class="dropdown-divider"></div>-->
+              <li class="clickable"><a (click)="onChange(authSer.getAdmin())"><i class="ti-settings"></i> Changer Password </a></li>
+              <div class="dropdown-divider"></div>
+              <li class="clickable"><a (click)="onLogout()"><i class="fa fa-power-off"></i> Déconnexion </a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!--<li routerLinkActive="active">
+          <a href="#homeSubmenu" class="accordion-toggle wave-effect" data-toggle="collapse" aria-expanded="false">
+            <i class="ti-home m-r-10"></i> Services
+          </a>
+          <ul class="collapse list-unstyled" id="homeSubmenu" data-parent="#accordion" *ngFor="let ser of services">
+            <li><a href="#">{{ser.nom}}</a></li>
+
+          </ul>
+        </li>-->
+        <li routerLinkActive="active">
+          <a routerLink="dashboard"  class="wave-effect"><i class="ti-home m-r-10"></i> Dashboard</a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a routerLink="services"  class="wave-effect"><i class="ti-briefcase m-r-10"></i> Services</a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a routerLink="medecins"  class="wave-effect"><i class="ti-id-badge m-r-10"></i> Médecins</a>
+        </li>
+
+        <li routerLinkActive="active">
+          <a routerLink="patients"  class="wave-effect"><i class="ti-id-badge m-r-10"></i> Patients</a>
+        </li>
+        <li>
+          <a (click)="onLogout()" class=" wave-effect" style="cursor: pointer">
+            <i class="ti-user m-r-10"></i>Login Page
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="container content-area">
+    <div class="row">
+      <div class="col-md-12">
+      <router-outlet></router-outlet>
+      </div>
+    </div>
+    </div>
+
+  </div>
+</div>
+<app-login *ngIf="!showHead" ></app-login>
+
+
+

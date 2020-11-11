@@ -1,0 +1,124 @@
+<!----------------------------------------- List service ------------------------------------------------------->
+<div class="panel" >
+  <div class="card-header m-b-15 row">
+    <div class="col-md-7"><h3><b>Services</b></h3></div>
+    <div class="col-md-3">
+      <div class="row">
+        <div class="col-md-2" style="margin-top: 10px">
+          <i class="ti-search"></i>
+        </div>
+        <div class="col-md-10">
+          <input class="form-control"  type="text" name="search" [(ngModel)]="searchText" placeholder="Rechercher Service">
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-success" routerLink="/createService">Ajouter</button>
+    </div>
+  </div>
+  <div class="table-responsive">
+
+    <table class="table table-bordered" *ngIf="services">
+      <tr>
+        <th>id</th>
+        <th>Nom</th>
+        <th>CHU</th>
+        <th>Chef service</th>
+       <!-- <th>Service</th>-->
+      </tr>
+     <!--<tr *ngFor="let ser of services | async | filter:searchText | paginate: { itemsPerPage: 2, currentPage: p }">-->
+      <tr *ngFor="let ser of services  | filter:searchText | paginate: { itemsPerPage: 5, currentPage: p }">
+        <td>{{ser.id}}</td>
+        <td>{{ser.nom}}</td>
+        <td>{{ser.nomCHU}}</td>
+         <td>
+           <span *ngFor="let med of medecins">
+           <p *ngIf="med.grade && med.grade.id==ser.id">{{med.nom}}</p>
+           </span>
+
+          <!--{{med.grade.id}}-->
+        </td>
+       <!-- <td *ngIf="ser.chefservice">{{ser.chefservice.nom}}</td>
+        <td *ngIf="!ser.chefservice"></td>-->
+        <td>
+          <!------------------------------------------------------ Update Service ----------------------------------------------------------->
+
+          <a href="javascript:void(0)" (click)="update(ser.id)" class="text-decoration-none" ><i class="ti-pencil-alt"></i></a>
+          &nbsp;
+          <!-------------------------------------------------- Supprimer Service ------------------------------------------------------>
+
+          <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal" (click)="smsService(ser.id)" id="delete-id" class="text-decoration-none"><i style="color: red" class="ti-trash"></i></a> &nbsp;
+
+
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Suppression</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Veuillez-vous vraiment supprimer ce service
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-danger" (click)="delete()" data-dismiss="modal">Supprimer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--------------------------------------------- Détail Service -------------------------------------------------------------->
+
+          <a href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal2" (click)="smsService(ser.id)" class="text-decoration-none"><i style="color: green" class="ti-eye"></i></a>
+
+          <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModal2Label">Détail Service</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div *ngIf="service">
+                    <div>
+                      <label><b>Nom: </b></label>
+                      <p>{{service.nom}}</p>
+                    </div>
+                    <div>
+                      <label><b>Chef service: </b></label>
+                      <span *ngFor="let mede of medecins">
+                        <p *ngIf="mede.grade && mede.grade.id==service.id">{{mede.nom}}</p>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!---------------------------------------------------------------------------------------------------------------------->
+        </td>
+      </tr>
+
+    </table>
+  </div>
+  <!-------------------------------------- Pagination list Service ------------------------------------------------------>
+  <!--<ul class="nav nav-pills">
+    <li class="nav-item" *ngFor="let p of pages; let i=index">
+      <a [ngClass]="{'active':currentPage==i}" class="nav-link" (click)="setPage(i,$event)" style="cursor: pointer">{{i}}</a>
+    </li>
+  </ul>-->
+
+  <ul class="pagination">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </ul>
+  <!------------------------------------------------------------------------------------------------------------------------>
+</div>

@@ -1,0 +1,186 @@
+<div class="panel" >
+  <div class="card-header m-b-15 row">
+    <div class="col-md-0">
+      <mat-icon routerLink="/medecins" style="cursor: pointer">keyboard_arrow_left</mat-icon>
+    </div>
+    <div class="col-md-7">
+      <h3>
+        <b>Ajouter Patient</b>
+      </h3>
+    </div>
+  </div>
+
+
+  <form  name="form" #f="ngForm" (ngSubmit)="f.form.valid && add(f.value)"  novalidate class="feedback-form">
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="identite">Numéro d'identité</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><mat-icon>perm_identity</mat-icon></div>
+          </div>
+          <input type="number" class="form-control" id="identite"
+                 ngModel="" name="numeroIdentite"
+                 #numeroIdentite="ngModel"
+                 [ngClass]="{ 'is-invalid': (f.submitted && numeroIdentite.invalid) ||erroMessage=='Numero d\'identite is already exist' }"
+                 required/>
+        </div>
+        <div *ngIf="f.submitted && numeroIdentite.invalid ||erroMessage=='Numero d\'identite is already exist'" class="invalid-input">
+          <!-- individual validation errors -->
+          <div *ngIf="numeroIdentite.errors?.required">Field is required</div>
+          <div *ngIf="erroMessage=='Numero d\'identite is already exist'">{{erroMessage}}</div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="assurance">Numéro d'assurance</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><mat-icon>perm_identity</mat-icon></div>
+          </div>
+          <input type="number" class="form-control" id="assurance"
+                 ngModel="" name="numeroAssurance"
+                 #numeroAssurance="ngModel"
+                 [ngClass]="{ 'is-invalid': (f.submitted && numeroAssurance.invalid)||erroMessage=='Numero d\'assurance is already exist' }"
+                 required/>
+        </div>
+        <div *ngIf="f.submitted && numeroAssurance.invalid ||erroMessage=='Numero d\'assurance is already exist'" class="invalid-input">
+          <!-- individual validation errors -->
+          <div *ngIf="numeroAssurance.errors?.required">Field is required</div>
+          <div *ngIf="erroMessage=='Numero d\'assurance is already exist'">{{erroMessage}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="firstName">Nom</label>
+        <input type="text" class="form-control" id="firstName"
+               ngModel="" name="nom"
+               #nom="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && nom.invalid }"
+               required/>
+        <div *ngIf="f.submitted && nom.invalid" class="invalid-input">
+          <!-- individual validation errors -->
+          <div *ngIf="nom.errors?.required">Field is required</div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="exampleFormControlSelect1">Sexe</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><mat-icon>wc</mat-icon></div>
+          </div>
+          <select class="form-control" id="exampleFormControlSelect1" name="sexe" ngModel=""
+                  #sexe="ngModel"
+                  [ngClass]="{ 'is-invalid': f.submitted && sexe.invalid }"
+                  required
+          >
+            <option value="Homme">Homme</option>
+            <option value="Femme">Femme</option>
+          </select>
+        </div>
+        <div *ngIf="f.submitted && sexe.invalid" class="invalid-input">
+          <!-- individual validation errors -->
+          <div *ngIf="sexe.errors?.required">Field is required</div>
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="prenom">Prénom</label>
+        <input type="text" class="form-control" id="prenom"
+               ngModel="" name="prenom"
+               #prenom="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && prenom.invalid }"
+               required/>
+        <div *ngIf="f.submitted && prenom.invalid" class="invalid-input">
+          <!-- individual validation errors -->
+          <div *ngIf="prenom.errors?.required">Field is required</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="email">Email</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><mat-icon>email</mat-icon></div>
+          </div>
+          <input type="text" class="form-control" id="email"  ngModel="" name="email"
+                 #email="ngModel"
+                 [ngClass]="{ 'is-invalid': (f.submitted && email.invalid)||erroMessage=='Email is already exist' }"
+                 required email
+          />
+        </div>
+        <div *ngIf="f.submitted && email.invalid ||erroMessage=='Email is already exist'" class="invalid-input">
+          <!-- individual validation errors -->
+          <div *ngIf="email.errors?.required">Field is required</div>
+          <div *ngIf="email.errors?.email">Field is not a valid email</div>
+          <div *ngIf="erroMessage=='Email is already exist'">{{erroMessage}}</div>
+        </div>
+      </div>
+      <div class="form-group col-md-4">
+        <label for="dateNaissance">Date Naissance</label>
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><mat-icon>date_range</mat-icon></div>
+          </div>
+          <input type="date" class="form-control" id="dateNaissance"
+                 ngModel="" name="dateNaissance"
+                 #dateNaissance="ngModel"
+                 [ngClass]="{ 'is-invalid': f.submitted && dateNaissance.invalid }"
+                 required/>
+        </div>
+        <div *ngIf="f.submitted && dateNaissance.invalid" class="invalid-input">
+          <!-- individual validation errors -->
+          <div *ngIf="dateNaissance.errors?.required">Field is required</div>
+        </div>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="phone">Téléphone</label>
+
+        <div class="input-group mb-2">
+          <div class="input-group-prepend">
+            <div class="input-group-text"><mat-icon>phone</mat-icon></div>
+          </div>
+          <input type="tel" pattern="[0]{1}[0-9]{9}" class="form-control" id="phone"
+                 ngModel="" name="phone"
+                 #phone="ngModel"
+                 [ngClass]="{ 'is-invalid': f.submitted && phone.invalid }"
+                 required/>
+        </div>
+        <div *ngIf="f.submitted && phone.invalid" class="invalid-input">
+          <!-- individual validation errors -->
+          <div *ngIf="phone.errors?.required">Field is required</div>
+          <div *ngIf="phone.errors?.pattern">Format is not valid</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="adresse">Adresse</label>
+
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><mat-icon>place</mat-icon></div>
+        </div>
+        <input type="text" class="form-control" id="adresse"
+               ngModel="" name="adresse"
+               #adresse="ngModel"
+               [ngClass]="{ 'is-invalid': f.submitted && adresse.invalid }"
+               required/>
+      </div>
+      <div *ngIf="f.submitted && adresse.invalid" class="invalid-input">
+        <!-- individual validation errors -->
+        <div *ngIf="adresse.errors?.required">Field is required</div>
+      </div>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-success" >ajouter</button>
+  </form>
+
+</div>

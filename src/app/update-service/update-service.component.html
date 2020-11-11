@@ -1,0 +1,93 @@
+<div class="panel" >
+  <div class="card-header m-b-15 row">
+    <div class="col-md-0">
+      <mat-icon routerLink="/services" style="cursor: pointer">keyboard_arrow_left</mat-icon>
+    </div>
+    <div class="col-md-7">
+      <h3>
+        <b>Modifier Service</b>
+      </h3>
+    </div>
+  </div>
+
+  <form   name="form" #f="ngForm" (ngSubmit)="f.form.valid && update(f.value)"  novalidate class="feedback-form">
+    <input type="hidden" name="id"/>
+
+
+    <div class="form-group">
+      <label for="nom">Nom</label>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><mat-icon>local_hospital</mat-icon></div>
+        </div>
+        <input type="text" class="form-control" id="nom" required [(ngModel)]="service.nom" name="nom"
+               #nom="ngModel"
+               [ngClass]="{ 'is-invalid': (f.submitted && nom.invalid)||errorMessage=='Service is already exist' }"
+               required  />
+      </div>
+      <div *ngIf="f.submitted && nom.invalid ||errorMessage=='Service is already exist'" class="invalid-input">
+        <!-- individual validation errors -->
+        <div *ngIf="nom.errors?.required">Field is required</div>
+
+        <div *ngIf="errorMessage=='Service is already exist'">{{errorMessage}}</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="nom">Nom CHU</label>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><mat-icon>local_hospital</mat-icon></div>
+        </div>
+        <input type="text" class="form-control" id="nomCHU" required [(ngModel)]="service.nomCHU" name="nomCHU"
+               #nomCHU="ngModel"
+               [ngClass]="{ 'is-invalid': (f.submitted && nomCHU.invalid)}"
+               required  />
+      </div>
+      <div *ngIf="f.submitted && nomCHU.invalid" class="invalid-input">
+        <!-- individual validation errors -->
+        <div *ngIf="nomCHU.errors?.required">Field is required</div>
+
+      </div>
+    </div>
+
+    <!--<div class="form-group">
+      <label for="service">Service</label>
+      <input type="text" class="form-control" id="service" required [(ngModel)]="medecin.service.nom" name="sevice" >
+    </div>-->
+
+    <div class="form-group"  >
+      <label  for="sel1">Chef service</label>
+
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <div class="input-group-text"><mat-icon>person</mat-icon></div>
+        </div>
+        <select *ngIf="medecin" class="form-control"  id="sel2" [(ngModel)]="medecin.id"  name="chefservice" >
+          <ng-container *ngFor="let mede of medecins">
+            <option *ngIf="mede.service && mede.service.id==service.id" [value]="mede.id" [selected]="mede.id==medecin.id" >
+              {{mede.nom}}
+            </option>
+          </ng-container>
+
+        </select>
+
+
+        <select *ngIf="!medecin" class="form-control"  id="sel1" ngModel=""  name="chefservice">
+          <ng-container *ngFor="let mede of medecins">
+            <option  *ngIf="mede.service && mede.service.id==service.id" [value]="mede.id">
+              {{mede.nom}}
+            </option>
+          </ng-container>
+
+        </select>
+
+      </div>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-success">Modifier</button>
+  </form>
+
+</div>
